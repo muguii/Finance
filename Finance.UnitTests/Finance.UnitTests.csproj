@@ -21,4 +21,10 @@
     </PackageReference>
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Application\Commands\" />
+    <Folder Include="Application\Queries\" />
+    <Folder Include="Core\Entities\" />
+  </ItemGroup>
+
 </Project>
