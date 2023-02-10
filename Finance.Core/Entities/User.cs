@@ -11,7 +11,6 @@
         public string Telephone { get; private set; }
         public bool Active { get; private set; }
 
-        public int AddressId { get; private set; }
         public Address Address { get; private set; }
         public List<Account> Accounts { get; private set; }
 
