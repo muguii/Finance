@@ -4,6 +4,6 @@ namespace Finance.Core.Repositories
 {
     public interface IUserRepository : IBaseRepository<User>
     {
-        Task<User> GetByIdWithAccountsAsync(int id);
+        Task<User> GetByIdWithDetailsAsync(int id);
     }
 }

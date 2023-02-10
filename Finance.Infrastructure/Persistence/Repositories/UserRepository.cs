@@ -30,7 +30,7 @@ namespace Finance.Infrastructure.Persistence.Repositories
                                         .SingleOrDefaultAsync(u => u.Id == id && u.Active);
         }
 
-        public async Task<User> GetByIdWithAccountsAsync(int id)
+        public async Task<User> GetByIdWithDetailsAsync(int id)
         {
             return await _dbContext.User.Include(u => u.Accounts)
                                         .Include(u => u.Accounts)

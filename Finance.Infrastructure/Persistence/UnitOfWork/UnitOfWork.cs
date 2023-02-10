@@ -5,7 +5,7 @@ namespace Finance.Infrastructure.Persistence
 {
     public class UnitOfWork : IUnitOfWork, IDisposable
     {
-        private readonly FinanceDbContext _context;
+        private readonly FinanceDbContext _dbContext;
         private IDbContextTransaction _transaction;
 
         public IAccountRepository Account { get; }
@@ -13,28 +13,28 @@ namespace Finance.Infrastructure.Persistence
         public ITransactionRepository Transaction { get; }
         public IUserRepository User { get; }
 
-        public UnitOfWork(FinanceDbContext context, 
+        public UnitOfWork(FinanceDbContext dbContext, 
                           IAccountRepository account, 
                           ICategoryRepository category,
                           ITransactionRepository transaction, 
                           IUserRepository user)
         {
-            _context = context;
+            this._dbContext = dbContext;
 
-            Account = account;
-            Category = category;
-            Transaction = transaction;
-            User = user;
+            this.Account = account;
+            this.Category = category;
+            this.Transaction = transaction;
+            this.User = user;
         }
 
         public async Task<int> CompleteAsync()
         {
-            return await _context.SaveChangesAsync();
+            return await _dbContext.SaveChangesAsync();
         }
 
         public async Task BeginTransactionAsync()
         {
-            _transaction = await _context.Database.BeginTransactionAsync();
+            _transaction = await _dbContext.Database.BeginTransactionAsync();
         }
 
         public async Task CommitAsync()
@@ -59,7 +59,7 @@ namespace Finance.Infrastructure.Persistence
         public virtual void Dispose(bool disposing)
         {
             if (disposing)
-                _context.Dispose();
+                _dbContext.Dispose();
         }
     }
 }

@@ -18,7 +18,7 @@ namespace Finance.Infrastructure.Persistence.Repositories
             return await this.GetActive(query).ToListAsync();
         }
 
-        public async Task<List<Category>> GetAllWithTransactionsAsync(string? query)
+        public async Task<List<Category>> GetAllWithDetailsAsync(string? query)
         {
             return await this.GetActive(query)
                              .Include(c => c.Transactions)
@@ -30,7 +30,7 @@ namespace Finance.Infrastructure.Persistence.Repositories
             return await _dbContext.Category.SingleOrDefaultAsync(c => c.Id == id && c.Active);
         }
 
-        public async Task<Category> GetByIdWithTransactionsAsync(int id)
+        public async Task<Category> GetByIdWithDetailsAsync(int id)
         {
             return await _dbContext.Category.Include(c => c.Transactions)
                                             .SingleOrDefaultAsync(c => c.Id == id && c.Active);

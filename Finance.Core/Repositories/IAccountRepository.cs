@@ -4,8 +4,8 @@ namespace Finance.Core.Repositories
 {
     public interface IAccountRepository : IBaseRepository<Account>
     {
-        Task<List<Account>> GetAllWithTransactionsAsync(string? query);
-        Task<Account> GetByIdWithTransactionsAsync(int id);
+        Task<List<Account>> GetAllWithDetailsAsync(string? query);
+        Task<Account> GetByIdWithDetailsAsync(int id);
 
     }
 }
