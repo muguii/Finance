@@ -13,6 +13,7 @@
 
         public Address Address { get; private set; }
         public List<Account> Accounts { get; private set; }
+        public List<Category> Categories { get; private set; }
 
         public User(string login, string email, string name, string lastName, DateTime birthdate, string gender, string telephone, bool active) : base()
         {

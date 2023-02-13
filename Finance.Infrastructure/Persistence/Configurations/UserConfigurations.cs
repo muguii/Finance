@@ -26,6 +26,11 @@ namespace Finance.Infrastructure.Persistence.Configurations
                    .WithOne()
                    .HasForeignKey(a => a.UserId)
                    .OnDelete(DeleteBehavior.Restrict);
+
+            builder.HasMany(u => u.Categories)
+                   .WithOne()
+                   .HasForeignKey(c => c.UserId)
+                   .OnDelete(DeleteBehavior.Restrict);
         }
     }
 }

@@ -9,6 +9,7 @@ namespace Finance.Core.Entities
         public bool Active { get; private set; }
         public CategoryType Type { get; private set; }
 
+        public int UserId { get; private set; }
         public List<Transaction> Transactions { get; private set; }
 
         public Category(string description, string color, bool active, CategoryType type) : base()
