@@ -4,6 +4,7 @@ using Finance.Infrastructure.Persistence;
 using Microsoft.EntityFrameworkCore;
 using Finance.Core.Repositories;
 using Finance.Infrastructure.Persistence.Repositories;
+using Finance.Infrastructure.Services.Auth;
 
 namespace Finance.Infrastructure
 {
@@ -13,6 +14,7 @@ namespace Finance.Infrastructure
         {
             services.AddPersistence(configuration)
                     .AddRepositories()
+                    .AddAuthentication()
                     .AddUnitOfWork();
 
             return services;
@@ -32,6 +34,13 @@ namespace Finance.Infrastructure
             services.AddScoped<ICategoryRepository, CategoryRepository>();
             services.AddScoped<ITransactionRepository, TransactionRepository>();
             services.AddScoped<IUserRepository, UserRepository>();
+
+            return services;
+        }
+
+        private static IServiceCollection AddAuthentication(this IServiceCollection services)
+        {
+            services.AddScoped<IAuthService, AuthService>();
 
             return services;
         }

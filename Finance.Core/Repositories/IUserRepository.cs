@@ -5,5 +5,6 @@ namespace Finance.Core.Repositories
     public interface IUserRepository : IBaseRepository<User>
     {
         Task<User> GetByIdWithDetailsAsync(int id);
+        Task AddAddressAsync(Address address);
     }
 }

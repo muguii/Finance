@@ -12,7 +12,20 @@
 
         public int UserId { get; private set; }
 
-        public Address(string street, string number, string postalCode, string district, string city, string state, string country) : base()
+        public Address(int userId, string street, string number, string postalCode, string district, string city, string state, string country) : base()
+        {
+            UserId = userId;
+
+            Street = street;
+            Number = number;
+            PostalCode = postalCode;
+            District = district;
+            City = city;
+            State = state;
+            Country = country;
+        }
+
+        internal void Update(string street, string number, string postalCode, string district, string city, string state, string country)
         {
             Street = street;
             Number = number;
@@ -21,6 +34,8 @@
             City = city;
             State = state;
             Country = country;
+
+            LastUpdate = DateTime.Now;
         }
     }
 }

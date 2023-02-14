@@ -1,3 +1,4 @@
+using Finance.Application;
 using Finance.Infrastructure;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -6,7 +7,8 @@ var builder = WebApplication.CreateBuilder(args);
 
 var configuration = builder.Configuration;
 
-builder.Services.AddInfrastructure(configuration);
+builder.Services.AddInfrastructure(configuration)
+                .AddApplication();
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle

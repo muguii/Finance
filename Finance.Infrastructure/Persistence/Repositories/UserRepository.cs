@@ -18,7 +18,8 @@ namespace Finance.Infrastructure.Persistence.Repositories
             if (string.IsNullOrWhiteSpace(query))
                 return await _dbContext.User.ToListAsync();
 
-            return await _dbContext.User.Where(u => u.Name.Contains(query) || 
+            return await _dbContext.User.Include(u => u.Address)
+                                        .Where(u => u.Name.Contains(query) || 
                                               (!string.IsNullOrWhiteSpace(u.LastName) && u.LastName.Contains(query)) || 
                                                u.Login.Contains(query))
                                         .ToListAsync();
@@ -26,20 +27,26 @@ namespace Finance.Infrastructure.Persistence.Repositories
 
         public async Task<User> GetByIdAsync(int id)
         {
-            return await _dbContext.User.Include(u => u.Accounts)
-                                        .SingleOrDefaultAsync(u => u.Id == id && u.Active);
+            return await _dbContext.User.Include(u => u.Address)
+                                        .SingleOrDefaultAsync(u => u.Id == id);
         }
 
         public async Task<User> GetByIdWithDetailsAsync(int id)
         {
-            return await _dbContext.User.Include(u => u.Accounts)
+            return await _dbContext.User.Include(u => u.Address)
                                         .Include(u => u.Accounts)
-                                        .SingleOrDefaultAsync(u => u.Id == id && u.Active);
+                                        .Include(u => u.Categories)
+                                        .SingleOrDefaultAsync(u => u.Id == id);
         }
 
         public async Task AddAsync(User user)
         {
             await _dbContext.User.AddAsync(user);
+        }
+
+        public async Task AddAddressAsync(Address address)
+        {
+            await _dbContext.Address.AddAsync(address);
         }
     }
 }
