@@ -7,7 +7,7 @@ namespace Finance.Application.Mappers
     {
         public static CategoryDetailsViewModel ToCategoryDetailsViewModel(this Category category)
         {
-            return new CategoryDetailsViewModel(category.Description, category.Color, category.Active, category.Type, category.CreatedAt);
+            return new CategoryDetailsViewModel(category.Description, category.Color, category.Active, category.Type, category.CreatedAt, category.LastUpdate);
         }
     }
 }

@@ -16,6 +16,9 @@ namespace Finance.Application.Commands.UpdateUser
         {
             var user = await _unitOfWork.User.GetByIdAsync(request.UserId);
 
+            //if (user == null)
+                // Exception?
+
             user.Update(request.Name, request.LastName, request.Telephone,
                         request.Street, request.Number, request.PostalCode, request.District, request.City, request.State, request.Country);
 

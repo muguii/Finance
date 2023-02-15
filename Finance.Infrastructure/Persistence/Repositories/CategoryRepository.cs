@@ -27,19 +27,24 @@ namespace Finance.Infrastructure.Persistence.Repositories
 
         public async Task<Category> GetByIdAsync(int id)
         {
-            return await _dbContext.Category.SingleOrDefaultAsync(c => c.Id == id && c.Active);
+            return await _dbContext.Category.SingleOrDefaultAsync(c => c.Id == id);
         }
 
         public async Task<Category> GetByIdWithDetailsAsync(int id)
         {
             return await _dbContext.Category.Include(c => c.Transactions)
-                                            .SingleOrDefaultAsync(c => c.Id == id && c.Active);
+                                            .SingleOrDefaultAsync(c => c.Id == id);
 
         }
 
         public async Task AddAsync(Category category)
         {
             await _dbContext.Category.AddAsync(category);
+        }
+
+        public void Remove(Category category)
+        {
+            _dbContext.Category.Remove(category);
         }
 
         private IQueryable<Category> GetActive(string? query)

@@ -6,6 +6,6 @@ namespace Finance.Core.Repositories
     {
         Task<List<Category>> GetAllWithDetailsAsync(string? query);
         Task<Category> GetByIdWithDetailsAsync(int id);
-
+        void Remove(Category category);
     }
 }

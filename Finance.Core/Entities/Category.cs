@@ -12,12 +12,38 @@ namespace Finance.Core.Entities
         public int UserId { get; private set; }
         public List<Transaction> Transactions { get; private set; }
 
-        public Category(string description, string color, bool active, CategoryType type) : base()
+        public Category(string description, string color, CategoryType type, int userId) : base()
         {
             Description = description;
             Color = color;
-            Active = active;
             Type = type;
+            UserId = userId;
+
+            Active = true;
+
+            Transactions = new List<Transaction>();
+        }
+
+        public void Update(string description, string color)
+        {
+            Description = description;
+            Color = color;
+
+            LastUpdate = DateTime.Now;
+        }
+
+        public void Shelve()
+        {
+            Active = false;
+
+            LastUpdate = DateTime.Now;
+        }
+
+        public void Unshelve()
+        {
+            Active = true;
+
+            LastUpdate = DateTime.Now;
         }
     }
 }

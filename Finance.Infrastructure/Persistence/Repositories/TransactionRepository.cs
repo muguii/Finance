@@ -34,5 +34,11 @@ namespace Finance.Infrastructure.Persistence.Repositories
         {
             await _dbContext.Transaction.AddAsync(transaction);
         }
+
+        public void RemoveRange(List<Transaction> transactions)
+        {
+            if (transactions.Any())
+                _dbContext.Transaction.RemoveRange(transactions);
+        }
     }
 }
