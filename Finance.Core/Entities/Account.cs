@@ -33,6 +33,16 @@
             LastUpdate= DateTime.Now;
         }
 
+        public void Credit(decimal value)
+        {
+            Balance += value;
+        }
+
+        public void Debit(decimal value)
+        {
+            Balance -= value;
+        }
+
         public void Shelve()
         {
             Active = false;

@@ -1,4 +1,5 @@
-﻿using Finance.Infrastructure.Persistence;
+﻿using Finance.Core.Enums;
+using Finance.Infrastructure.Persistence;
 using MediatR;
 
 namespace Finance.Application.Commands.Transaction.Create
@@ -16,10 +17,21 @@ namespace Finance.Application.Commands.Transaction.Create
         {
             var transaction = new Core.Entities.Transaction(request.Description, request.Date, request.Value, request.AccountId, request.CategoryId);
 
+            await _unitOfWork.BeginTransactionAsync();
+
             await _unitOfWork.Transaction.AddAsync(transaction);
             await _unitOfWork.CompleteAsync();
 
-            // TODO: Increase or decrease account balance
+            transaction = await _unitOfWork.Transaction.GetByIdAsync(transaction.Id);
+
+            if (transaction.Category.Type == CategoryType.Expense)
+                transaction.Account.Debit(transaction.Value);
+            else
+                transaction.Account.Credit(transaction.Value);
+
+            await _unitOfWork.CompleteAsync();
+
+            await _unitOfWork.CommitAsync();
 
             return transaction.Id;
         }

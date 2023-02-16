@@ -34,8 +34,9 @@ namespace Finance.Infrastructure.Persistence.Repositories
         public async Task<User> GetByIdWithDetailsAsync(int id)
         {
             return await _dbContext.User.Include(u => u.Address)
-                                        .Include(u => u.Accounts)
                                         .Include(u => u.Categories)
+                                        .Include(u => u.Accounts)
+                                        .ThenInclude(a => a.Transactions)
                                         .SingleOrDefaultAsync(u => u.Id == id);
         }
 
