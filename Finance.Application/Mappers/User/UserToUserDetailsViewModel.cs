@@ -1,11 +1,13 @@
-﻿using Finance.Application.ViewModels;
-using Finance.Core.Entities;
+﻿using Finance.Application.Mappers.Account;
+using Finance.Application.Mappers.Address;
+using Finance.Application.Mappers.Category;
+using Finance.Application.ViewModels;
 
-namespace Finance.Application.Mappers
+namespace Finance.Application.Mappers.User
 {
     public static class UserToUserDetailsViewModel
     {
-        public static UserDetailsViewModel ToUserDetailsViewModel(this User user)
+        public static UserDetailsViewModel ToUserDetailsViewModel(this Core.Entities.User user)
         {
             return new UserDetailsViewModel(user.Id,
                                             user.Login,

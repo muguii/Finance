@@ -1,11 +1,10 @@
 ﻿using Finance.Application.ViewModels;
-using Finance.Core.Entities;
 
-namespace Finance.Application.Mappers
+namespace Finance.Application.Mappers.User
 {
     public static class UserToUserViewModel
     {
-        public static UserViewModel ToUserViewModel(this User user)
+        public static UserViewModel ToUserViewModel(this Core.Entities.User user)
         {
             return new UserViewModel(user.Id, $"{user.Name.Trim()} {user.LastName?.Trim()}".Trim(), user.Birthdate, user.Gender);
         }

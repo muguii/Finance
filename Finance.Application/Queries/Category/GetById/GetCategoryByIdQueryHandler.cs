@@ -1,4 +1,4 @@
-﻿using Finance.Application.Mappers;
+﻿using Finance.Application.Mappers.Category;
 using Finance.Application.ViewModels;
 using Finance.Infrastructure.Persistence;
 using MediatR;
