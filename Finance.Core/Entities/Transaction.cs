@@ -20,12 +20,11 @@
             CategoryId = categoryId;
         }
 
-        public void Update(int categoryId, int accountId, string description, DateTime date)
+        public void Update(string description, DateTime date, decimal value)
         {
-            AccountId = accountId;
-            CategoryId = categoryId;
             Description = description;
             Date = date;
+            Value = value;
 
             LastUpdate = DateTime.Now;
         }

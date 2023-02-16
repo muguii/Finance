@@ -1,4 +1,5 @@
-﻿using Finance.Infrastructure.Persistence;
+﻿using Finance.Core.Enums;
+using Finance.Infrastructure.Persistence;
 using MediatR;
 
 namespace Finance.Application.Commands.Transaction.Update
@@ -19,10 +20,32 @@ namespace Finance.Application.Commands.Transaction.Update
             //if (transaction == null)
                 //Exception?
 
-            transaction.Update(request.CategoryId, request.AccountId, request.Description, request.Date);
-            await _unitOfWork.CompleteAsync();
+            bool valueChanged = request.Value != transaction.Value;
+            if (valueChanged)
+            {
+                const int positiveValue = -1;
+                decimal adjustmentValue = request.Value - transaction.Value;
 
-            // TODO: When changing the account, add the value in old account and decrease value in new account
+                if (transaction.Category.Type == CategoryType.Expense)
+                {
+                    bool expenseIncreased = adjustmentValue >= 0;
+                    if (expenseIncreased)
+                        transaction.Account.Debit(adjustmentValue);
+                    else
+                        transaction.Account.Credit(adjustmentValue * positiveValue);
+                }
+                else
+                {
+                    bool incomeIncreased = adjustmentValue >= 0;
+                    if (incomeIncreased)
+                        transaction.Account.Credit(adjustmentValue);
+                    else
+                        transaction.Account.Debit(adjustmentValue * positiveValue);
+                }
+            }
+
+            transaction.Update(request.Description, request.Date, request.Value);
+            await _unitOfWork.CompleteAsync();
 
             return Unit.Value;
         }
