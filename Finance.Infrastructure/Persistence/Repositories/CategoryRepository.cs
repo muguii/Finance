@@ -42,6 +42,11 @@ namespace Finance.Infrastructure.Persistence.Repositories
             await _dbContext.Category.AddAsync(category);
         }
 
+        public async Task AddRangeAsync(List<Category> categories)
+        {
+            await _dbContext.Category.AddRangeAsync(categories);
+        }
+
         public void Remove(Category category)
         {
             _dbContext.Category.Remove(category);
