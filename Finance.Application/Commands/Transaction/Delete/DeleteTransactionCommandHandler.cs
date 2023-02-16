@@ -1,4 +1,5 @@
-﻿using Finance.Infrastructure.Persistence;
+﻿using Finance.Core.Enums;
+using Finance.Infrastructure.Persistence;
 using MediatR;
 
 namespace Finance.Application.Commands.Transaction.Delete
@@ -19,10 +20,18 @@ namespace Finance.Application.Commands.Transaction.Delete
             //if (transaction == null)
                 //Exception?
 
+            await _unitOfWork.BeginTransactionAsync();
+
+            if (transaction.Category.Type == CategoryType.Expense)
+                transaction.Account.Credit(transaction.Value);
+            else
+                transaction.Account.Debit(transaction.Value);
+
             _unitOfWork.Transaction.Remove(transaction);
+
             await _unitOfWork.CompleteAsync();
 
-            // TODO: Add or decrease the value of the account
+            await _unitOfWork.CommitAsync();
 
             return Unit.Value;
         }
