@@ -1,4 +1,4 @@
-﻿using Finance.Application.Queries.GetAllUsers;
+﻿using Finance.Application.Queries.User.GetAll;
 using MediatR;
 using Microsoft.Extensions.DependencyInjection;
 

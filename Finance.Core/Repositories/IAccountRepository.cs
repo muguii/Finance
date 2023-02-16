@@ -6,6 +6,6 @@ namespace Finance.Core.Repositories
     {
         Task<List<Account>> GetAllWithDetailsAsync(string? query);
         Task<Account> GetByIdWithDetailsAsync(int id);
-
+        void Remove(Account account);
     }
 }

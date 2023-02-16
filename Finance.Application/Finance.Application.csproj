@@ -7,6 +7,12 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Commands\Account\Shelve\ShelveAccountCommandHandler.cs\**" />
+    <EmbeddedResource Remove="Commands\Account\Shelve\ShelveAccountCommandHandler.cs\**" />
+    <None Remove="Commands\Account\Shelve\ShelveAccountCommandHandler.cs\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Folder Include="Validators\" />
   </ItemGroup>
 

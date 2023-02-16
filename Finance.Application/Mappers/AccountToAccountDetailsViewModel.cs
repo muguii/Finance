@@ -7,7 +7,14 @@ namespace Finance.Application.Mappers
     {
         public static AccountDetailsViewModel ToAccountDetailsViewModel(this Account account)
         {
-            return new AccountDetailsViewModel(account.Description, account.Color, account.Balance, account.InitialBalance, account.Active, account.CreatedAt);
+            return new AccountDetailsViewModel(account.Description, 
+                                               account.Color, 
+                                               account.Balance, 
+                                               account.InitialBalance, 
+                                               account.Active, 
+                                               account.CreatedAt, 
+                                               account.LastUpdate, 
+                                               account.Transactions.Select(t => t.ToTransactionDetailsViewModel()).ToList());
         }
     }
 }

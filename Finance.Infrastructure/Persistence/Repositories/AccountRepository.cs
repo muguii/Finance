@@ -27,19 +27,24 @@ namespace Finance.Infrastructure.Persistence.Repositories
 
         public async Task<Account> GetByIdAsync(int id)
         {
-            return await _dbContext.Account.SingleOrDefaultAsync(a => a.Id == id && a.Active);
+            return await _dbContext.Account.SingleOrDefaultAsync(a => a.Id == id);
         }
 
         public async Task<Account> GetByIdWithDetailsAsync(int id)
         {
             return await _dbContext.Account.Include(a => a.Transactions)
-                                           .SingleOrDefaultAsync(a => a.Id == id && a.Active);
+                                           .SingleOrDefaultAsync(a => a.Id == id);
 
         }
 
         public async Task AddAsync(Account account)
         {
             await _dbContext.AddAsync(account);
+        }
+
+        public void Remove(Account account)
+        {
+            _dbContext.Remove(account);
         }
 
         private IQueryable<Account> GetActive(string? query)

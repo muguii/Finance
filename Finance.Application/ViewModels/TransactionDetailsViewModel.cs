@@ -10,13 +10,14 @@
 
         public CategoryViewModel Category { get; private set; }
 
-        public TransactionDetailsViewModel(string description, DateTime date, decimal value, DateTime createdAt, DateTime lastUpdate)
+        public TransactionDetailsViewModel(string description, DateTime date, decimal value, DateTime createdAt, DateTime lastUpdate, CategoryViewModel categoryViewModel)
         {
             Description = description;
             Date = date;
             Value = value;
             CreatedAt = createdAt; 
             LastUpdate = lastUpdate;
+            Category = categoryViewModel;
         }
     }
 }

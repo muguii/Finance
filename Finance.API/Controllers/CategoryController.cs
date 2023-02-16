@@ -1,10 +1,10 @@
-﻿using Finance.Application.Commands.CreateCategory;
-using Finance.Application.Commands.DeleteCategory;
-using Finance.Application.Commands.ShelveCategory;
-using Finance.Application.Commands.UnshelveCategory;
-using Finance.Application.Commands.UpdateCategory;
-using Finance.Application.Queries.GetAllCategories;
-using Finance.Application.Queries.GetCategoryById;
+﻿using Finance.Application.Commands.Category.Create;
+using Finance.Application.Commands.Category.Update;
+using Finance.Application.Commands.Category.Delete;
+using Finance.Application.Commands.Category.Shelve;
+using Finance.Application.Commands.Category.Unshelve;
+using Finance.Application.Queries.Category.GetAll;
+using Finance.Application.Queries.Category.GetById;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 

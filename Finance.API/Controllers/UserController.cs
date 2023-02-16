@@ -1,7 +1,7 @@
-﻿using Finance.Application.Commands.CreateUser;
-using Finance.Application.Commands.UpdateUser;
-using Finance.Application.Queries.GetAllUsers;
-using Finance.Application.Queries.GetUserById;
+﻿using Finance.Application.Commands.User.Create;
+using Finance.Application.Commands.User.Update;
+using Finance.Application.Queries.User.GetById;
+using Finance.Application.Queries.User.GetAll;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
