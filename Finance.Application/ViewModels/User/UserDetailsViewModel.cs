@@ -1,4 +1,8 @@
-﻿namespace Finance.Application.ViewModels
+﻿using Finance.Application.ViewModels.Account;
+using Finance.Application.ViewModels.Address;
+using Finance.Application.ViewModels.Category;
+
+namespace Finance.Application.ViewModels.User
 {
     public class UserDetailsViewModel
     {
@@ -18,14 +22,14 @@
         public List<CategoryDetailsViewModel> Categories { get; private set; }
 
         public UserDetailsViewModel(int id,
-                                    string login, 
-                                    string email, 
-                                    string fullName, 
-                                    DateTime birthdate, 
-                                    string gender, 
-                                    string telephone, 
-                                    bool active, 
-                                    DateTime createdAt, 
+                                    string login,
+                                    string email,
+                                    string fullName,
+                                    DateTime birthdate,
+                                    string gender,
+                                    string telephone,
+                                    bool active,
+                                    DateTime createdAt,
                                     DateTime lastUpdate,
                                     AddressDetailsViewModel address,
                                     List<AccountDetailsViewModel> accounts,

@@ -1,4 +1,4 @@
-﻿using Finance.Application.ViewModels;
+﻿using Finance.Application.ViewModels.Category;
 
 namespace Finance.Application.Mappers.Category
 {
@@ -6,7 +6,7 @@ namespace Finance.Application.Mappers.Category
     {
         public static CategoryViewModel ToCategoryViewModel(this Core.Entities.Category category)
         {
-            return new CategoryViewModel(category.Description, category.Color, category.Type);
+            return new CategoryViewModel(category.Id, category.Description, category.Color, category.Type);
         }
     }
 }

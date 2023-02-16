@@ -1,5 +1,5 @@
 ﻿using Finance.Application.Mappers.Transaction;
-using Finance.Application.ViewModels;
+using Finance.Application.ViewModels.Account;
 
 namespace Finance.Application.Mappers.Account
 {
@@ -14,7 +14,7 @@ namespace Finance.Application.Mappers.Account
                                                account.Active,
                                                account.CreatedAt,
                                                account.LastUpdate,
-                                               account.Transactions.Select(t => t.ToTransactionDetailsViewModel()).ToList());
+                                               account.Transactions.Select(t => t.ToTransactionViewModel()).ToList());
         }
     }
 }

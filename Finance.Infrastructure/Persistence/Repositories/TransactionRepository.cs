@@ -40,5 +40,10 @@ namespace Finance.Infrastructure.Persistence.Repositories
             if (transactions.Any())
                 _dbContext.Transaction.RemoveRange(transactions);
         }
+
+        public void Remove(Transaction transaction)
+        {
+            _dbContext.Transaction.Remove(transaction);
+        }
     }
 }

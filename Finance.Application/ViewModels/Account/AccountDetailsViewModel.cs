@@ -1,4 +1,6 @@
-﻿namespace Finance.Application.ViewModels
+﻿using Finance.Application.ViewModels.Transaction;
+
+namespace Finance.Application.ViewModels.Account
 {
     public class AccountDetailsViewModel
     {
@@ -10,7 +12,7 @@
         public DateTime CreatedAt { get; private set; }
         public DateTime LastUpdate { get; private set; }
 
-        public List<TransactionDetailsViewModel> Transactions { get; private set; }
+        public List<TransactionViewModel> Transactions { get; private set; }
 
         public AccountDetailsViewModel(string description,
                                        string color,
@@ -19,7 +21,7 @@
                                        bool active,
                                        DateTime createdAt,
                                        DateTime lastUpdate,
-                                       List<TransactionDetailsViewModel> transactionDetailsViewModel)
+                                       List<TransactionViewModel> transactionDetailsViewModel)
         {
             Description = description;
             Color = color;

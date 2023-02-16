@@ -11,11 +11,23 @@
         public int CategoryId { get; private set; }
         public Category Category { get; private set; }
 
-        public Transaction(string description, DateTime date, decimal value) : base()
+        public Transaction(string description, DateTime date, decimal value, int accountId, int categoryId) : base()
         {
             Description = description;
             Date = date;
             Value = value;
+            AccountId = accountId;
+            CategoryId = categoryId;
+        }
+
+        public void Update(int categoryId, int accountId, string description, DateTime date)
+        {
+            AccountId = accountId;
+            CategoryId = categoryId;
+            Description = description;
+            Date = date;
+
+            LastUpdate = DateTime.Now;
         }
     }
 }

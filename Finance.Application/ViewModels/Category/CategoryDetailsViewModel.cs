@@ -1,6 +1,6 @@
 ﻿using Finance.Core.Enums;
 
-namespace Finance.Application.ViewModels
+namespace Finance.Application.ViewModels.Category
 {
     public class CategoryDetailsViewModel
     {

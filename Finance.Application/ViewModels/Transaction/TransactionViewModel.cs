@@ -1,6 +1,6 @@
-﻿namespace Finance.Application.ViewModels
+﻿namespace Finance.Application.ViewModels.Transaction
 {
-    public class TransactionDetailsViewModel
+    public class TransactionViewModel
     {
         public string Description { get; private set; }
         public DateTime Date { get; private set; }
@@ -8,16 +8,13 @@
         public DateTime CreatedAt { get; private set; }
         public DateTime LastUpdate { get; private set; }
 
-        public CategoryViewModel Category { get; private set; }
-
-        public TransactionDetailsViewModel(string description, DateTime date, decimal value, DateTime createdAt, DateTime lastUpdate, CategoryViewModel categoryViewModel)
+        public TransactionViewModel(string description, DateTime date, decimal value, DateTime createdAt, DateTime lastUpdate)
         {
             Description = description;
             Date = date;
             Value = value;
-            CreatedAt = createdAt; 
+            CreatedAt = createdAt;
             LastUpdate = lastUpdate;
-            Category = categoryViewModel;
         }
     }
 }

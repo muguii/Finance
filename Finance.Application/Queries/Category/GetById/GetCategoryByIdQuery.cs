@@ -1,4 +1,4 @@
-﻿using Finance.Application.ViewModels;
+﻿using Finance.Application.ViewModels.Category;
 using MediatR;
 
 namespace Finance.Application.Queries.Category.GetById

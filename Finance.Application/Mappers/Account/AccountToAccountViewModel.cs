@@ -1,4 +1,4 @@
-﻿using Finance.Application.ViewModels;
+﻿using Finance.Application.ViewModels.Account;
 
 namespace Finance.Application.Mappers.Account
 {
@@ -6,7 +6,7 @@ namespace Finance.Application.Mappers.Account
     {
         public static AccountViewModel ToAccountViewModel(this Core.Entities.Account account)
         {
-            return new AccountViewModel(account.Description, account.Color, account.Balance);
+            return new AccountViewModel(account.Id, account.Description, account.Color, account.Balance);
         }
     }
 }

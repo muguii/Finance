@@ -1,5 +1,5 @@
 ﻿using Finance.Application.Mappers.Account;
-using Finance.Application.ViewModels;
+using Finance.Application.ViewModels.Account;
 using Finance.Infrastructure.Persistence;
 using MediatR;
 

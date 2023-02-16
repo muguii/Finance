@@ -1,4 +1,4 @@
-﻿using Finance.Application.ViewModels;
+﻿using Finance.Application.ViewModels.Category;
 
 namespace Finance.Application.Mappers.Category
 {

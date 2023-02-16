@@ -1,4 +1,4 @@
-﻿namespace Finance.Application.ViewModels
+﻿namespace Finance.Application.ViewModels.User
 {
     public class UserViewModel
     {

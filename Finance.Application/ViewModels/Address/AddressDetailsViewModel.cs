@@ -1,4 +1,4 @@
-﻿namespace Finance.Application.ViewModels
+﻿namespace Finance.Application.ViewModels.Address
 {
     public class AddressDetailsViewModel
     {

@@ -1,4 +1,4 @@
-﻿using Finance.Application.ViewModels;
+﻿using Finance.Application.ViewModels.Address;
 
 namespace Finance.Application.Mappers.Address
 {

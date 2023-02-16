@@ -1,4 +1,4 @@
-﻿using Finance.Application.ViewModels;
+﻿using Finance.Application.ViewModels.User;
 
 namespace Finance.Application.Mappers.User
 {

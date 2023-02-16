@@ -1,7 +1,7 @@
 ﻿using Finance.Application.Mappers.Account;
 using Finance.Application.Mappers.Address;
 using Finance.Application.Mappers.Category;
-using Finance.Application.ViewModels;
+using Finance.Application.ViewModels.User;
 
 namespace Finance.Application.Mappers.User
 {

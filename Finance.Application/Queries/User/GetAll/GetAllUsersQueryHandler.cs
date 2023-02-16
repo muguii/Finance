@@ -1,5 +1,5 @@
 ﻿using Finance.Application.Mappers.User;
-using Finance.Application.ViewModels;
+using Finance.Application.ViewModels.User;
 using Finance.Infrastructure.Persistence;
 using MediatR;
 
