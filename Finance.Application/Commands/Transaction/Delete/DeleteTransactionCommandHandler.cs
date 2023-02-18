@@ -18,7 +18,7 @@ namespace Finance.Application.Commands.Transaction.Delete
             var transaction = await _unitOfWork.Transaction.GetByIdAsync(request.Id);
 
             //if (transaction == null)
-                //Exception?
+                // TODO: Exception?
 
             await _unitOfWork.BeginTransactionAsync();
 

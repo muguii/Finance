@@ -17,7 +17,7 @@ namespace Finance.Application.Commands.Account.Update
             var account = await _unitOfWork.Account.GetByIdAsync(request.AccountId);
 
             //if (account == null)
-            //Exception?
+            // TODO: Exception?
 
             // TODO: Balance change must create a transaction
 

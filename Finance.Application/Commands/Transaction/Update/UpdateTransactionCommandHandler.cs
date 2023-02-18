@@ -18,7 +18,7 @@ namespace Finance.Application.Commands.Transaction.Update
             var transaction = await _unitOfWork.Transaction.GetByIdAsync(request.TransactionId);
 
             //if (transaction == null)
-                //Exception?
+                // TODO: Exception?
 
             bool valueChanged = request.Value != transaction.Value;
             if (valueChanged)
@@ -43,6 +43,8 @@ namespace Finance.Application.Commands.Transaction.Update
                         transaction.Account.Debit(adjustmentValue * positiveValue);
                 }
             }
+
+            // TODO: Changing account and/or category
 
             transaction.Update(request.Description, request.Date, request.Value);
             await _unitOfWork.CompleteAsync();

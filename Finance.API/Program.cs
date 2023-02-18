@@ -1,3 +1,4 @@
+using Finance.API.Filters;
 using Finance.Application;
 using Finance.Infrastructure;
 
@@ -10,7 +11,7 @@ var configuration = builder.Configuration;
 builder.Services.AddInfrastructure(configuration)
                 .AddApplication();
 
-builder.Services.AddControllers();
+builder.Services.AddControllers(options => options.Filters.Add(typeof(ValidationFilter)));
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();

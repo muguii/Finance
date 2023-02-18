@@ -17,7 +17,7 @@ namespace Finance.Application.Commands.Category.Delete
             var category = await _unitOfWork.Category.GetByIdWithDetailsAsync(request.Id);
 
             //if (category == null)
-            // Exception?
+                //  TODO: Exception?
 
             //if (category.Active)
             // Can only delete categories that are disabled (Shelved)

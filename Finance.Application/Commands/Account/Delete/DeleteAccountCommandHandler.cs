@@ -17,10 +17,10 @@ namespace Finance.Application.Commands.Account.Delete
             var account = await _unitOfWork.Account.GetByIdWithDetailsAsync(request.Id);
 
             //if (account == null)
-                //Exception?
+                // TODO: Exception?
 
             //if (account.Active)
-                // Can only delete accounts that are disabled (Shelved)
+                // TODO: Can only delete accounts that are disabled (Shelved)
 
             await _unitOfWork.BeginTransactionAsync();
 

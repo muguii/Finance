@@ -17,7 +17,7 @@ namespace Finance.Application.Commands.Category.Update
             var category = await _unitOfWork.Category.GetByIdAsync(request.CategoryId);
 
             //if (category == null)
-            // Exception?
+                // TODO: Exception?
 
             category.Update(request.Description, request.Color);
             await _unitOfWork.CompleteAsync();

@@ -17,7 +17,7 @@ namespace Finance.Application.Commands.Category.Unshelve
             var category = await _unitOfWork.Category.GetByIdAsync(request.Id);
 
             //if (category == null)
-            // Exception?
+                // TODO: Exception?
 
             category.Unshelve();
             await _unitOfWork.CompleteAsync();

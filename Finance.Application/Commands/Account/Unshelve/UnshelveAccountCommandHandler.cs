@@ -17,7 +17,7 @@ namespace Finance.Application.Commands.Account.Unshelve
             var account = await _unitOfWork.Account.GetByIdAsync(request.Id);
 
             //if (account == null)
-                //Exception?
+                // TODO: Exception?
 
             account.Unshelve();
             await _unitOfWork.CompleteAsync();
