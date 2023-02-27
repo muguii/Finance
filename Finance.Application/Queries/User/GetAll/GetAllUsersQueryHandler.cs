@@ -1,11 +1,12 @@
 ﻿using Finance.Application.Mappers.User;
 using Finance.Application.ViewModels.User;
+using Finance.Core.Models;
 using Finance.Infrastructure.Persistence;
 using MediatR;
 
 namespace Finance.Application.Queries.User.GetAll
 {
-    public class GetAllUsersQueryHandler : IRequestHandler<GetAllUsersQuery, List<UserViewModel>>
+    public class GetAllUsersQueryHandler : IRequestHandler<GetAllUsersQuery, PaginationResult<UserViewModel>>
     {
         private readonly IUnitOfWork _unitOfWork;
 
@@ -14,10 +15,16 @@ namespace Finance.Application.Queries.User.GetAll
             _unitOfWork = unitOfWork;
         }
 
-        public async Task<List<UserViewModel>> Handle(GetAllUsersQuery request, CancellationToken cancellationToken)
+        public async Task<PaginationResult<UserViewModel>> Handle(GetAllUsersQuery request, CancellationToken cancellationToken)
         {
-            var users = await _unitOfWork.User.GetAllAsync(request.Query);
-            return users.Select(user => user.ToUserViewModel()).ToList();
+            var paginationUsers = await _unitOfWork.User.GetAllAsync(request.Query, request.Page);
+            var users = paginationUsers.Data.Select(user => user.ToUserViewModel()).ToList();
+
+            return new PaginationResult<UserViewModel>(paginationUsers.Page,
+                                                       paginationUsers.TotalPages,
+                                                       paginationUsers.PageSize,
+                                                       paginationUsers.ItemsCount,
+                                                       users);
         }
     }
 }

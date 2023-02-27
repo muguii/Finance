@@ -1,11 +1,12 @@
 ﻿using Finance.Application.Mappers.Transaction;
 using Finance.Application.ViewModels.Transaction;
+using Finance.Core.Models;
 using Finance.Infrastructure.Persistence;
 using MediatR;
 
 namespace Finance.Application.Queries.Transaction.GetAll
 {
-    public class GetAllTransactionsQueryHandler : IRequestHandler<GetAllTransactionsQuery, List<TransactionDetailsViewModel>>
+    public class GetAllTransactionsQueryHandler : IRequestHandler<GetAllTransactionsQuery, PaginationResult<TransactionDetailsViewModel>>
     {
         private readonly IUnitOfWork _unitOfWork;
 
@@ -14,10 +15,16 @@ namespace Finance.Application.Queries.Transaction.GetAll
             this._unitOfWork = unitOfWork;
         }
 
-        public async Task<List<TransactionDetailsViewModel>> Handle(GetAllTransactionsQuery request, CancellationToken cancellationToken)
+        public async Task<PaginationResult<TransactionDetailsViewModel>> Handle(GetAllTransactionsQuery request, CancellationToken cancellationToken)
         {
-            var transactions = await _unitOfWork.Transaction.GetAllAsync(request.Query);
-            return transactions.Select(transaction => transaction.ToTransactionDetailsViewModel()).ToList();
+            var paginationTransactions = await _unitOfWork.Transaction.GetAllAsync(request.Query, request.Page);
+            var transactions = paginationTransactions.Data.Select(transaction => transaction.ToTransactionDetailsViewModel()).ToList();
+
+            return new PaginationResult<TransactionDetailsViewModel>(paginationTransactions.Page,
+                                                                     paginationTransactions.TotalPages,
+                                                                     paginationTransactions.PageSize,
+                                                                     paginationTransactions.ItemsCount,
+                                                                     transactions);
         }
     }
 }

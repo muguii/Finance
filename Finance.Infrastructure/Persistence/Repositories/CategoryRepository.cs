@@ -1,4 +1,5 @@
 ﻿using Finance.Core.Entities;
+using Finance.Core.Models;
 using Finance.Core.Repositories;
 using Microsoft.EntityFrameworkCore;
 
@@ -6,6 +7,7 @@ namespace Finance.Infrastructure.Persistence.Repositories
 {
     public class CategoryRepository : ICategoryRepository
     {
+        private const int PAGE_SIZE = 10;
         private readonly FinanceDbContext _dbContext;
 
         public CategoryRepository(FinanceDbContext dbContext)
@@ -13,9 +15,9 @@ namespace Finance.Infrastructure.Persistence.Repositories
             this._dbContext = dbContext;
         }
 
-        public async Task<List<Category>> GetAllAsync(string? query)
+        public async Task<PaginationResult<Category>> GetAllAsync(string? query, int page)
         {
-            return await this.GetActive(query).ToListAsync();
+            return await this.GetActive(query).GetPaged(page, PAGE_SIZE);
         }
 
         public async Task<List<Category>> GetAllWithDetailsAsync(string? query)
