@@ -5,6 +5,9 @@ using Microsoft.EntityFrameworkCore;
 using Finance.Core.Repositories;
 using Finance.Infrastructure.Persistence.Repositories;
 using Finance.Infrastructure.Services.Auth;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.IdentityModel.Tokens;
+using System.Text;
 
 namespace Finance.Infrastructure
 {
@@ -14,7 +17,7 @@ namespace Finance.Infrastructure
         {
             services.AddPersistence(configuration)
                     .AddRepositories()
-                    .AddAuthentication()
+                    .AddAuthentication(configuration)
                     .AddUnitOfWork();
 
             return services;
@@ -38,8 +41,26 @@ namespace Finance.Infrastructure
             return services;
         }
 
-        private static IServiceCollection AddAuthentication(this IServiceCollection services)
+        private static IServiceCollection AddAuthentication(this IServiceCollection services, IConfiguration configuration)
         {
+            services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+                    .AddJwtBearer(options =>
+                    {
+                        options.TokenValidationParameters = new TokenValidationParameters
+                        {
+                            ValidateIssuer = true,
+                            ValidIssuer = configuration["Jwt:Issuer"],
+
+                            ValidateAudience = true,
+                            ValidAudience = configuration["Jwt:Audience"],
+
+                            ValidateIssuerSigningKey = true,
+                            IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(configuration["Jwt:Key"])),
+
+                            ValidateLifetime = true
+                        };
+                    });
+
             services.AddScoped<IAuthService, AuthService>();
 
             return services;

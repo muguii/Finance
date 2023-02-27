@@ -1,10 +1,21 @@
-﻿using System.Security.Cryptography;
+﻿using Microsoft.Extensions.Configuration;
+using Microsoft.IdentityModel.Tokens;
+using System.IdentityModel.Tokens.Jwt;
+using System.Security.Claims;
+using System.Security.Cryptography;
 using System.Text;
 
 namespace Finance.Infrastructure.Services.Auth
 {
     public class AuthService : IAuthService
     {
+        private readonly IConfiguration _configuration;
+
+        public AuthService(IConfiguration configuration)
+        {
+            this._configuration = configuration;
+        }
+
         public string ComputeSha256Hash(string password)
         {
             using (SHA256 sha256Hash = SHA256.Create())
@@ -22,6 +33,32 @@ namespace Finance.Infrastructure.Services.Auth
 
                 return builder.ToString();
             }
+        }
+
+        public string GenerateJwtToken(string login, string email, string role)
+        {
+            var issuer = _configuration["Jwt:Issuer"];
+            var audience = _configuration["Jwt:Audience"];
+            var key = _configuration["Jwt:Key"];
+
+            var securityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(key));
+            var credentials = new SigningCredentials(securityKey, SecurityAlgorithms.HmacSha256);
+
+            var claims = new List<Claim> 
+            {
+                new Claim("login", login),
+                new Claim("email", email),
+                new Claim(ClaimTypes.Role, role),
+            };
+
+            var jwtSecurityToken = new JwtSecurityToken(issuer: issuer,
+                                                        audience: audience,
+                                                        claims: claims,
+                                                        expires: DateTime.Now.AddHours(8),
+                                                        signingCredentials: credentials);
+
+            var token = new JwtSecurityTokenHandler().WriteToken(jwtSecurityToken);
+            return token;
         }
     }
 }

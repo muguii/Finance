@@ -5,11 +5,13 @@ using Finance.Application.Queries.Transaction.GetAll;
 using Finance.Application.Queries.Transaction.GetById;
 using Finance.Core.Exceptions;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Finance.API.Controllers
 {
     [Route("api/transactions")]
+    [Authorize]
     public class TransactionController : ControllerBase
     {
         private readonly IMediator _mediator;

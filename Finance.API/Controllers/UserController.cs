@@ -5,10 +5,13 @@ using Finance.Application.Queries.User.GetAll;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Finance.Core.Exceptions;
+using Finance.Application.Commands.User.Login;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Finance.API.Controllers
 {
     [Route("api/users")]
+    [Authorize]
     public class UserController : ControllerBase
     {
         private readonly IMediator _mediator;
@@ -18,13 +21,15 @@ namespace Finance.API.Controllers
             this._mediator = mediator;
         }
 
-        [HttpGet] // Apenas admin
+        [HttpGet]
+        [Authorize(Roles = "admin")]
         public async Task<IActionResult> Get(GetAllUsersQuery getAllUserQuery)
         {
             return Ok(await _mediator.Send(getAllUserQuery));
         }
 
-        [HttpGet("{id}")] // Apenas admin
+        [HttpGet("{id}")]
+        [Authorize(Roles = "admin")]
         public async Task<IActionResult> GetById(int id)
         {
             var userDetails = await _mediator.Send(new GetUserByIdQuery(id));
@@ -36,6 +41,7 @@ namespace Finance.API.Controllers
         }
 
         [HttpPost]
+        [AllowAnonymous]
         public async Task<IActionResult> Post([FromBody] CreateUserCommand createUserCommand)
         {
             var id = await _mediator.Send(createUserCommand);
@@ -44,6 +50,7 @@ namespace Finance.API.Controllers
         }
 
         [HttpPut]
+        [Authorize(Roles = "admin,user")]
         public async Task<IActionResult> Put([FromBody] UpdateUserCommand updateUserCommand)
         {
             try
@@ -55,6 +62,18 @@ namespace Finance.API.Controllers
             {
                 return NotFound(userNotExists.Message);
             }
+        }
+
+        [HttpPut("login")]
+        [AllowAnonymous]
+        public async Task<IActionResult> Login([FromBody] LoginUserCommand loginUserCommand)
+        {
+            var userToken = await _mediator.Send(loginUserCommand);
+
+            if (userToken == null)
+                return BadRequest();
+
+            return Ok(userToken);
         }
     }
 }

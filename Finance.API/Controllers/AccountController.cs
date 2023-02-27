@@ -7,11 +7,13 @@ using Finance.Application.Queries.Account.GetAll;
 using Finance.Application.Queries.Account.GetById;
 using Finance.Core.Exceptions;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Finance.API.Controllers
 {
     [Route("api/accounts")]
+    [Authorize]
     public class AccountController : ControllerBase
     {
         private readonly IMediator _mediator;

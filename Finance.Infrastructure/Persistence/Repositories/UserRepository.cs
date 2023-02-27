@@ -42,6 +42,11 @@ namespace Finance.Infrastructure.Persistence.Repositories
                                         .SingleOrDefaultAsync(u => u.Id == id);
         }
 
+        public async Task<User> GetByLoginAndPasswordAsync(string login, string passwordHash)
+        {
+            return await _dbContext.User.SingleOrDefaultAsync(u => u.Login == login && u.Password == passwordHash);
+        }
+
         public async Task AddAsync(User user)
         {
             await _dbContext.User.AddAsync(user);

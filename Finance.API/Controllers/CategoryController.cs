@@ -8,10 +8,12 @@ using Finance.Application.Queries.Category.GetById;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Finance.Core.Exceptions;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Finance.API.Controllers
 {
     [Route("api/categories")]
+    [Authorize]
     public class CategoryController : ControllerBase
     {
         private readonly IMediator _mediator;
