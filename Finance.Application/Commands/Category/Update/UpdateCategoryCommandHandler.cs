@@ -1,4 +1,5 @@
-﻿using Finance.Infrastructure.Persistence;
+﻿using Finance.Core.Exceptions;
+using Finance.Infrastructure.Persistence;
 using MediatR;
 
 namespace Finance.Application.Commands.Category.Update
@@ -16,8 +17,8 @@ namespace Finance.Application.Commands.Category.Update
         {
             var category = await _unitOfWork.Category.GetByIdAsync(request.CategoryId);
 
-            //if (category == null)
-                // TODO: Exception?
+            if (category == null)
+                throw new CategoryNotExistsException(request.CategoryId);
 
             category.Update(request.Description, request.Color);
             await _unitOfWork.CompleteAsync();

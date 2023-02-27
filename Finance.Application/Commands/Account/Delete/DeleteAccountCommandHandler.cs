@@ -1,4 +1,5 @@
-﻿using Finance.Infrastructure.Persistence;
+﻿using Finance.Core.Exceptions;
+using Finance.Infrastructure.Persistence;
 using MediatR;
 
 namespace Finance.Application.Commands.Account.Delete
@@ -16,11 +17,11 @@ namespace Finance.Application.Commands.Account.Delete
         {
             var account = await _unitOfWork.Account.GetByIdWithDetailsAsync(request.Id);
 
-            //if (account == null)
-                // TODO: Exception?
+            if (account == null)
+                throw new AccountNotExistsException(request.Id);
 
             //if (account.Active)
-                // TODO: Can only delete accounts that are disabled (Shelved)
+            // TODO: Can only delete accounts that are disabled (Shelved)
 
             await _unitOfWork.BeginTransactionAsync();
 

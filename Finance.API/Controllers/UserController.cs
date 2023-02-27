@@ -4,6 +4,7 @@ using Finance.Application.Queries.User.GetById;
 using Finance.Application.Queries.User.GetAll;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
+using Finance.Core.Exceptions;
 
 namespace Finance.API.Controllers
 {
@@ -45,9 +46,15 @@ namespace Finance.API.Controllers
         [HttpPut]
         public async Task<IActionResult> Put([FromBody] UpdateUserCommand updateUserCommand)
         {
-            await _mediator.Send(updateUserCommand);
-
-            return NoContent();
+            try
+            {
+                await _mediator.Send(updateUserCommand);
+                return NoContent();
+            }
+            catch (UserNotExistsException userNotExists)
+            {
+                return NotFound(userNotExists.Message);
+            }
         }
     }
 }

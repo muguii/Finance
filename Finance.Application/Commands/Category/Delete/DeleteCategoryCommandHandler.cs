@@ -1,4 +1,5 @@
-﻿using Finance.Infrastructure.Persistence;
+﻿using Finance.Core.Exceptions;
+using Finance.Infrastructure.Persistence;
 using MediatR;
 
 namespace Finance.Application.Commands.Category.Delete
@@ -16,8 +17,8 @@ namespace Finance.Application.Commands.Category.Delete
         {
             var category = await _unitOfWork.Category.GetByIdWithDetailsAsync(request.Id);
 
-            //if (category == null)
-                //  TODO: Exception?
+            if (category == null)
+                throw new CategoryNotExistsException(request.Id);
 
             //if (category.Active)
             // Can only delete categories that are disabled (Shelved)

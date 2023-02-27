@@ -1,4 +1,5 @@
 ﻿using Finance.Core.Enums;
+using Finance.Core.Exceptions;
 using Finance.Infrastructure.Persistence;
 using MediatR;
 
@@ -17,8 +18,8 @@ namespace Finance.Application.Commands.Transaction.Delete
         {
             var transaction = await _unitOfWork.Transaction.GetByIdAsync(request.Id);
 
-            //if (transaction == null)
-                // TODO: Exception?
+            if (transaction == null)
+                throw new TransactionNotExistsException(request.Id);
 
             await _unitOfWork.BeginTransactionAsync();
 

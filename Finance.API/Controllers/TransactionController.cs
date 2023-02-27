@@ -3,6 +3,7 @@ using Finance.Application.Commands.Transaction.Delete;
 using Finance.Application.Commands.Transaction.Update;
 using Finance.Application.Queries.Transaction.GetAll;
 using Finance.Application.Queries.Transaction.GetById;
+using Finance.Core.Exceptions;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
@@ -45,15 +46,29 @@ namespace Finance.API.Controllers
         [HttpPut]
         public async Task<IActionResult> Put([FromBody] UpdateTransactionCommand updateTransactionCommand)
         {
-            await _mediator.Send(updateTransactionCommand);
-            return NoContent();
+            try
+            {
+                await _mediator.Send(updateTransactionCommand);
+                return NoContent();
+            }
+            catch (TransactionNotExistsException transactionNotExists)
+            {
+                return NotFound(transactionNotExists.Message);
+            }
         }
 
         [HttpDelete("{id}")]
         public async Task<IActionResult> Delete(int id)
         {
-            await _mediator.Send(new DeleteTransactionCommand(id));
-            return NoContent();
+            try
+            {
+                await _mediator.Send(new DeleteTransactionCommand(id));
+                return NoContent();
+            }
+            catch (TransactionNotExistsException transactionNotExists)
+            {
+                return NotFound(transactionNotExists.Message);
+            }
         }
     }
 }

@@ -1,4 +1,5 @@
-﻿using Finance.Infrastructure.Persistence;
+﻿using Finance.Core.Exceptions;
+using Finance.Infrastructure.Persistence;
 using MediatR;
 
 namespace Finance.Application.Commands.Account.Update
@@ -16,8 +17,8 @@ namespace Finance.Application.Commands.Account.Update
         {
             var account = await _unitOfWork.Account.GetByIdAsync(request.AccountId);
 
-            //if (account == null)
-            // TODO: Exception?
+            if (account == null)
+                throw new AccountNotExistsException(request.AccountId);
 
             // TODO: Balance change must create a transaction
 

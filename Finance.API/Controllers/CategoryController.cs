@@ -7,6 +7,7 @@ using Finance.Application.Queries.Category.GetAll;
 using Finance.Application.Queries.Category.GetById;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
+using Finance.Core.Exceptions;
 
 namespace Finance.API.Controllers
 {
@@ -47,29 +48,57 @@ namespace Finance.API.Controllers
         [HttpPut]
         public async Task<IActionResult> Put([FromBody] UpdateCategoryCommand updateCategoryCommand)
         {
-            await _mediator.Send(updateCategoryCommand);
-            return NoContent();
+            try
+            {
+                await _mediator.Send(updateCategoryCommand);
+                return NoContent();
+            }
+            catch (CategoryNotExistsException categoryNotExists)
+            {
+                return NotFound(categoryNotExists.Message);
+            }
         }
 
         [HttpDelete("{id}")]
         public async Task<IActionResult> Delete(int id)
         {
-            await _mediator.Send(new DeleteCategoryCommand(id));
-            return NoContent();
+            try
+            {
+                await _mediator.Send(new DeleteCategoryCommand(id));
+                return NoContent();
+            }
+            catch (CategoryNotExistsException categoryNotExists)
+            {
+                return NotFound(categoryNotExists.Message);
+            }
         }
 
         [HttpPut("{id}/shelve")]
         public async Task<IActionResult> Shelve(int id)
         {
-            await _mediator.Send(new ShelveCategoryCommand(id));
-            return NoContent();
+            try
+            {
+                await _mediator.Send(new ShelveCategoryCommand(id));
+                return NoContent();
+            }
+            catch (CategoryNotExistsException categoryNotExists)
+            {
+                return NotFound(categoryNotExists.Message);
+            }
         }
 
         [HttpPut("{id}/unshelve")]
         public async Task<IActionResult> Unshelve(int id)
         {
-            await _mediator.Send(new UnshelveCategoryCommand(id));
-            return NoContent();
+            try
+            {
+                await _mediator.Send(new UnshelveCategoryCommand(id));
+                return NoContent();
+            }
+            catch (CategoryNotExistsException categoryNotExists)
+            {
+                return NotFound(categoryNotExists.Message);
+            }
         }
     }
 }

@@ -5,6 +5,7 @@ using Finance.Application.Commands.Account.Unshelve;
 using Finance.Application.Commands.Account.Update;
 using Finance.Application.Queries.Account.GetAll;
 using Finance.Application.Queries.Account.GetById;
+using Finance.Core.Exceptions;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
@@ -47,29 +48,57 @@ namespace Finance.API.Controllers
         [HttpPut]
         public async Task<IActionResult> Put([FromBody] UpdateAccountCommand updateAccountCommand)
         {
-            await _mediator.Send(updateAccountCommand);
-            return NoContent();
+            try
+            {
+                await _mediator.Send(updateAccountCommand);
+                return NoContent();
+            }
+            catch (AccountNotExistsException accountNotExists)
+            {
+                return NotFound(accountNotExists.Message);
+            }
         }
 
         [HttpDelete("{id}")]
         public async Task<IActionResult> Delete(int id)
         {
-            await _mediator.Send(new DeleteAccountCommand(id));
-            return NoContent();
+            try
+            {
+                await _mediator.Send(new DeleteAccountCommand(id));
+                return NoContent();
+            }
+            catch (AccountNotExistsException accountNotExists)
+            {
+                return NotFound(accountNotExists.Message);
+            }
         }
 
         [HttpPut("{id}/shelve")]
         public async Task<IActionResult> Shelve(int id)
         {
-            await _mediator.Send(new ShelveAccountCommand(id));
-            return NoContent();
+            try
+            {
+                await _mediator.Send(new ShelveAccountCommand(id));
+                return NoContent();
+            }
+            catch (AccountNotExistsException accountNotExists)
+            {
+                return NotFound(accountNotExists.Message);
+            }
         }
 
         [HttpPut("{id}/unshelve")]
         public async Task<IActionResult> Unshelve(int id)
         {
-            await _mediator.Send(new UnshelveAccountCommand(id));
-            return NoContent();
+            try
+            {
+                await _mediator.Send(new UnshelveAccountCommand(id));
+                return NoContent();
+            }
+            catch (AccountNotExistsException accountNotExists)
+            {
+                return NotFound(accountNotExists.Message);
+            }
         }
     }
 }

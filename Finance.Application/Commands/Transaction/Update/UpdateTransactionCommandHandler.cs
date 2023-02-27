@@ -1,4 +1,5 @@
 ﻿using Finance.Core.Enums;
+using Finance.Core.Exceptions;
 using Finance.Infrastructure.Persistence;
 using MediatR;
 
@@ -17,8 +18,8 @@ namespace Finance.Application.Commands.Transaction.Update
         {
             var transaction = await _unitOfWork.Transaction.GetByIdAsync(request.TransactionId);
 
-            //if (transaction == null)
-                // TODO: Exception?
+            if (transaction == null)
+                throw new TransactionNotExistsException(request.TransactionId);
 
             bool valueChanged = request.Value != transaction.Value;
             if (valueChanged)
