@@ -14,7 +14,7 @@ namespace Finance.Application.Commands.Account.Create
 
         public async Task<int> Handle(CreateAccountCommand request, CancellationToken cancellationToken)
         {
-            var account = new Core.Entities.Account(request.Description, request.Color, request.InitialBalance, request.InitialBalance, request.UserId);
+            var account = new Core.Entities.Account(request.Description, request.Color, request.InitialBalance, request.UserId);
 
             await _unitOfWork.Account.AddAsync(account);
             await _unitOfWork.CompleteAsync();

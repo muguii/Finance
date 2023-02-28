@@ -31,7 +31,7 @@ namespace Finance.Application.Commands.User.Create
             var address = new Address(user.Id, request.Street, request.Number, request.PostalCode, request.District, request.City, request.State, request.Country);
             await _unitOfWork.User.AddAddressAsync(address);
 
-            var defaultAccount = new Core.Entities.Account("Wallet", "brown", 0M, 0M, user.Id);
+            var defaultAccount = new Core.Entities.Account("Wallet", "brown", 0M, user.Id);
             await _unitOfWork.Account.AddAsync(defaultAccount);
 
             var defaultCategories = new List<Core.Entities.Category>

@@ -11,11 +11,11 @@
         public int UserId { get; private set; }
         public List<Transaction> Transactions { get; private set; }
 
-        public Account(string description, string color, decimal balance, decimal initialBalance, int userId) : base()
+        public Account(string description, string color, decimal initialBalance, int userId) : base()
         {
             Description = description;
             Color = color;
-            Balance = balance;
+            Balance = initialBalance;
             InitialBalance = initialBalance;
             UserId = userId;
 
@@ -30,7 +30,7 @@
             Color = color; 
             Balance = balance;
 
-            LastUpdate= DateTime.Now;
+            LastUpdate = DateTime.Now;
         }
 
         public void Credit(decimal value)
@@ -46,11 +46,15 @@
         public void Shelve()
         {
             Active = false;
+
+            LastUpdate = DateTime.Now;
         }
 
         public void Unshelve()
         {
             Active = true;
+
+            LastUpdate = DateTime.Now;
         }
     }
 }

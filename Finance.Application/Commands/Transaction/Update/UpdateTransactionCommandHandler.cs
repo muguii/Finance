@@ -21,6 +21,8 @@ namespace Finance.Application.Commands.Transaction.Update
             if (transaction == null)
                 throw new TransactionNotExistsException(request.TransactionId);
 
+            await _unitOfWork.BeginTransactionAsync();
+
             bool valueChanged = request.Value != transaction.Value;
             if (valueChanged)
             {
@@ -49,6 +51,8 @@ namespace Finance.Application.Commands.Transaction.Update
 
             transaction.Update(request.Description, request.Date, request.Value);
             await _unitOfWork.CompleteAsync();
+
+            await _unitOfWork.CommitAsync();
 
             return Unit.Value;
         }

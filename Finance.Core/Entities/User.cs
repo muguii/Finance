@@ -18,15 +18,8 @@
         public List<Account> Accounts { get; private set; }
         public List<Category> Categories { get; private set; }
 
-        public User(string login,
-                    string password,
-                    string email,
-                    string name,
-                    string lastName,
-                    DateTime birthdate,
-                    string gender,
-                    string telephone,
-                    string role) : base()
+        public User(string login, string password, string email, string name, string lastName,
+                    DateTime birthdate, string gender, string telephone, string role) : base()
         {
             Login = login;
             Password = password;
@@ -44,16 +37,15 @@
             Categories = new List<Category>();
         }
 
-        public void Update(string name,
-                           string? lastName,
-                           string telephone,
-                           string street,
-                           string number,
-                           string postalCode,
-                           string district,
-                           string city,
-                           string state,
-                           string country)
+        public User(string login, string password, string email, string name, string lastName,
+                    DateTime birthdate, string gender, string telephone, string role,
+                    Address address) : this(login, password, email, name, lastName, birthdate, gender, telephone, role)
+        {
+            Address = address;
+        }
+
+        public void Update(string name, string? lastName, string telephone, string street, string number,
+                           string postalCode, string district, string city, string state, string country)
         {
             Name = name;
             LastName = lastName;

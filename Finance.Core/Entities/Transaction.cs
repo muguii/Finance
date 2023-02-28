@@ -20,6 +20,12 @@
             CategoryId = categoryId;
         }
 
+        public Transaction(string description, DateTime date, decimal value, int accountId, int categoryId, Account account, Category category) : this(description, date, value, accountId, categoryId)
+        {
+            Account = account;
+            Category = category;
+        }
+
         public void Update(string description, DateTime date, decimal value)
         {
             Description = description;
