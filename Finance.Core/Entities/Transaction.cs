@@ -1,4 +1,6 @@
-﻿namespace Finance.Core.Entities
+﻿using Finance.Core.Enums;
+
+namespace Finance.Core.Entities
 {
     public class Transaction : BaseEntity
     {
@@ -28,11 +30,38 @@
 
         public void Update(string description, DateTime date, decimal value)
         {
+            bool valueChanged = this.Value != value;
+            if (valueChanged)
+                UpdateAccountBalance(value);
+
             Description = description;
             Date = date;
             Value = value;
 
             LastUpdate = DateTime.Now;
+        }
+
+        private void UpdateAccountBalance(decimal newTransactionValue)
+        {
+            const int positiveValue = -1;
+            decimal adjustmentValue = newTransactionValue - this.Value;
+
+            if (this.Category.Type == CategoryType.Expense)
+            {
+                bool expenseIncreased = adjustmentValue >= 0;
+                if (expenseIncreased)
+                    this.Account.Debit(adjustmentValue);
+                else
+                    this.Account.Credit(adjustmentValue * positiveValue);
+            }
+            else
+            {
+                bool incomeIncreased = adjustmentValue >= 0;
+                if (incomeIncreased)
+                    this.Account.Credit(adjustmentValue);
+                else
+                    this.Account.Debit(adjustmentValue * positiveValue);
+            }
         }
     }
 }
